@@ -11,22 +11,21 @@ function addPupsToDogBar(pups) {
         const span = document.createElement("span")
         span.textContent = element.name
         dogBar.append(span)
-        span.classList.add("dogNames")
-    })
-    dogBar.addEventListener('click', (event) => { 
-        event.preventDefault()
-        pups.filter(element => {showMorePupInfo(element)})      
+        span.addEventListener('click', (event) => { 
+            event.preventDefault()
+            showMorePupInfo(element)     
+        })
     })
 }
 
 function showMorePupInfo(pupIndividual) {
-        const img = document.createElement('img')
-        const h2 = document.createElement("h2")
-        const button = document.createElement("button")
-        img.src = pupIndividual.image
-        h2.textContent = pupIndividual.name
-        pupIndividual.isGoodDog ? button.innerText = 'Good Dog!' : button.innerText = 'Bad Dog!'
-        dogInfo.append(img)
-        dogInfo.append(h2)
-        dogInfo.append(button)
+    dogInfo.innerHTML = `
+    <img src=${pupIndividual.image}>
+    <h2>${pupIndividual.name}</h2>
+    <button>${pupIndividual.isGoodDog ? 'Good Dog!' : 'Bad Dog'}</button>
+    `
+    dogInfo.querySelector('button').addEventListener('click', () => {
+        pupIndividual.isGoodDog = !pupIndividual.isGoodDog
+        showMorePupInfo(pupIndividual)
+    })
 }
